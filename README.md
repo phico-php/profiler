@@ -28,7 +28,13 @@ $app->use[
 Start a timer
 
 ```php
-$timer->start('account-action', 'The account action duration');
+$timer->start('account-action', 'You may add a description');
+```
+
+Stop a timer
+
+```php
+$timer->stop('account-action');
 ```
 
 Check the response headers for the details
