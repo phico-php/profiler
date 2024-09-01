@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Phico\Profiler;
 
-use Phico\Http\Request;
+use Phico\Http\{Request, Response};
 use Phico\Middleware\MiddlewareInterface;
 
 
@@ -14,27 +14,27 @@ class ProfilerMiddleware implements MiddlewareInterface
     protected Timer $timer;
 
 
-    // @TODO use this when using workerman etc..
-    // at the moment timer() is static but and is bound to a single request
-    // under workerman it may be bound to all requests
-    // public function __construct()
-    // {
-    //     $this->timer = new Timer;
-    // }
-    function handle(Request $request, $next)
+    public function __construct()
+    {
+        // @TODO use this when using workerman etc..
+        // at the moment timer() is static but and is bound to a single request
+        // under workerman it may be bound to all requests
+        $this->timer = new Timer;
+    }
+    function handle(Request $request, $next): Response
     {
         // set timer in request attributes if using workerman
-        // $request->attr->set('timer', $this->timer);
+        $request->attrs()->set('timer', $this->timer);
 
         // add the default phico timer
         if (defined('PHICO_APP_START')) {
-            timer()->start('app', 'app start', PHICO_APP_START);
+            $this->timer->start('app', 'app start', PHICO_APP_START);
         }
         // continue app
         $response = $next($request);
         // stop the Phico app timer
         if (defined('PHICO_APP_START')) {
-            timer()->stop('app');
+            $this->timer->stop('app');
         }
         // add headers to response
         $response->headers->set('X-Peak-Memory', $this->formatMemory(memory_get_peak_usage()));
