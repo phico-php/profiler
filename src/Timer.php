@@ -51,7 +51,7 @@ class Timer
     /**
      * Returns all the registered timers
      *
-     * @return array<string,array>
+     * @return array<string,Timer>
      */
     public function all(): array
     {
