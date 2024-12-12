@@ -1,0 +1,4 @@
+{
+    "intelephense.environment.documentRoot": "/public/index.php",
+    "php-cs-fixer.executablePath": "/home/dev/phico-php/app/vendor/bin/php-cs-fixer"
+}

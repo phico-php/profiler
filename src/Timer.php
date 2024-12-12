@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Phico\Profiler;
 
-
 /**
  * This is the timer class, it tracks timers and their start/stop times
  *
@@ -18,7 +17,6 @@ class Timer
      */
     private $timers = [];
 
-
     /**
      * Starts a timer for $name
      *
@@ -27,7 +25,7 @@ class Timer
      * @param float $time An optional starting timestamp
      * @return Timer
      */
-    public function start(string $name, string $description = "", float $time = null): Timer
+    public function start(string $name, string $description = '', float $time = null): Timer
     {
         $this->timers[$name] = [
             'start' => (is_null($time)) ? microtime(true) : $time,
@@ -36,6 +34,7 @@ class Timer
         ];
         return $this;
     }
+
     /**
      * Stops the timer identified by $name by recording the end time
      *
@@ -48,6 +47,7 @@ class Timer
         $this->timers[$name]['stop'] = (is_null($time)) ? microtime(true) : $time;
         return $this;
     }
+
     /**
      * Returns all the registered timers
      *
@@ -57,5 +57,4 @@ class Timer
     {
         return $this->timers;
     }
-
 }
