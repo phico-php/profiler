@@ -41,6 +41,7 @@ class ProfilerMiddleware implements MiddlewareInterface
 
         // add the default phico timer
         if (defined('PHICO_APP_START')) {
+            /** @disregard P1011 */
             $this->timer->start('app', 'app start', PHICO_APP_START);
         }
         // continue app
